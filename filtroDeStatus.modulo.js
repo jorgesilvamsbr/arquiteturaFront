@@ -6,7 +6,7 @@ const templateStatus = `
 class FiltroDeStatus {
     iniciar() {
         $.ajax({
-            url: "http://localhost:8080/empresas/ramoDeNegocio"
+            url: "http://soelogios.herokuapp.com/empresas/ramoDeNegocio"
         }).then(function (data) {
             this.ramos = data;
             document.querySelector('div[data-js="filtro-de-status"]').innerHTML = templateStatus;

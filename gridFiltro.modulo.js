@@ -32,7 +32,7 @@ class GridFiltro {
     }
 
     obterEmpresas(ramoDeNegocio) {
-        $.get("http://localhost:8080/empresas/filtrarPor/" + ramoDeNegocio)
+        $.get("http://soelogios.herokuapp.com/empresas/filtrarPor/" + ramoDeNegocio)
             .then((resposta) => {
                 this.solicitacoes(resposta);
             });
