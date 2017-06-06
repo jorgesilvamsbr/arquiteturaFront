@@ -1,8 +1,8 @@
 const template = `
-<ul>
-  <li>Transporte escolar</li>
-  <li>FUNDEB</li>
-</ul>
+<select id="select-tipo-da-solicitacao" class="form-control" name="" data-js="filtro-de-tipo">
+    <option>Transporte Escolar</option>
+    <option>FUNDEB</option>
+</select>
 `;
 
 class FiltroDeTipo {

@@ -1,42 +1,40 @@
 let templateGrid = `
-<table>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Nome</td>
+        </tr>    
+    </thead>
   <tbody data-bind="foreach:solicitacoes">
     <tr>
-      <td data-bind="text: status"></td>
-      <td data-bind="text: tipo"></td>
+      <td data-bind="text: id"></td>
+      <td data-bind="text: nome"></td>
     </tr>
   </tbody>
 </table>
 `
 class GridFiltro {
     constructor() {
-        this.solicitacoes = ko.observableArray([{
-                status: "Em Analise",
-                tipo: "FUNDEB"
-            },
-            {
-                status: "Em Analise",
-                tipo: "Emenda Parlamentar"
-            },
-            {
-                status: "Celebrada",
-                tipo: "Cessao de Pessoal"
-            },
-            {
-                status: "Com pendencia",
-                tipo: "Transporte Escolar"
-            }
-        ]);
     }
 
     iniciar() {
+        this.solicitacoes = ko.observableArray();
+        this.obterEmpresas();
+
         document.querySelector('div[data-js="grid-de-solicitacoes"]').innerHTML = templateGrid;
         ko.applyBindings(this, document.querySelector('div[data-js="grid-de-solicitacoes"]'));
-        window.mediador.registrar('trocou-filtro-de-status', (status) => {
-            let solicitacoesFiltradas = this.solicitacoes().filter((solicitacao) => {
-                return solicitacao.status === status;
-            });
+
+        window.mediador.registrar('trocou-filtro-de-status', (ramoDeNegocio) => {
+            let solicitacoesFiltradas = this.obterEmpresas(ramoDeNegocio);
             this.solicitacoes(solicitacoesFiltradas);
         });
+    }
+
+    obterEmpresas(ramoDeNegocio) {
+        $.get("http://localhost:8080/empresas/filtrarPor/" + ramoDeNegocio)
+            .then((resposta) => {
+                this.solicitacoes(resposta);
+            });
     }
 }
