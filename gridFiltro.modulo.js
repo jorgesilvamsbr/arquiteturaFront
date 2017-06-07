@@ -2,39 +2,63 @@ let templateGrid = `
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>Id</td>
-            <td>Nome</td>
+            <td>Descricao</td>
+            <td>Status</td>
+            <td>Tipo</td>
         </tr>    
     </thead>
   <tbody data-bind="foreach:solicitacoes">
     <tr>
-      <td data-bind="text: id"></td>
-      <td data-bind="text: nome"></td>
+      <td data-bind="text: assunto"></td>
+      <td data-bind="text: statusDaSolicitacao"></td>
+      <td data-bind="text: tipoDeSolicitacao"></td>
     </tr>
   </tbody>
 </table>
 `
+let url;
+
 class GridFiltro {
     constructor() {
     }
 
     iniciar() {
         this.solicitacoes = ko.observableArray();
-        this.obterEmpresas();
+        this.obterSolicitacoesFiltradasPorStatus();
 
         document.querySelector('div[data-js="grid-de-solicitacoes"]').innerHTML = templateGrid;
         ko.applyBindings(this, document.querySelector('div[data-js="grid-de-solicitacoes"]'));
 
-        window.mediador.registrar('trocou-filtro-de-status', (ramoDeNegocio) => {
-            let solicitacoesFiltradas = this.obterEmpresas(ramoDeNegocio);
+        window.mediador.registrar('trocou-filtro-de-status', (statusDaSolicitacao) => {
+            let solicitacoesFiltradas = this.obterSolicitacoesFiltradasPorStatus(statusDaSolicitacao);
+            this.solicitacoes(solicitacoesFiltradas);
+        });
+
+        window.mediador.registrar('trocou-filtro-de-tipo', (tipoDaSolicitacao) => {
+            let solicitacoesFiltradas = this.obterSolicitacoesFiltradasPorTipo(tipoDaSolicitacao);
             this.solicitacoes(solicitacoesFiltradas);
         });
     }
 
-    obterEmpresas(ramoDeNegocio) {
-        $.get("http://localhost:8080/empresas/filtrarPor/" + ramoDeNegocio)
-            .then((resposta) => {
-                this.solicitacoes(resposta);
-            });
+    obterSolicitacoesFiltradasPorTipo(tipoDaSolicitacao) {
+        if(tipoDaSolicitacao == null ||  tipoDaSolicitacao == ""){
+            this.filtrar(urlBase.obter() + "solicitacao");
+        }else{
+            this.filtrar(urlBase.obter() + "solicitacao/tipo/" + tipoDaSolicitacao);
+        }
+    }
+
+    obterSolicitacoesFiltradasPorStatus(statusDaSolicitacao) {
+        if(statusDaSolicitacao == null || statusDaSolicitacao == ""){
+            this.filtrar(urlBase.obter() + "solicitacao");
+        }else{
+            this.filtrar(urlBase.obter() + "solicitacao/status/" + statusDaSolicitacao);
+        }
+    }
+
+    filtrar(url) {
+        $.get(url).then((resposta) => {
+            this.solicitacoes(resposta);
+        });
     }
 }
