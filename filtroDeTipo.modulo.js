@@ -6,7 +6,7 @@ const template = `
 class FiltroDeTipo {
     iniciar() {
         $.ajax({
-            url: urlBase.obter() + "solicitacao/tipos"
+            url: urlBase.obter() + "solicitacao/tipo"
         }).then(function (data) {
             this.tipo = data;
             document.querySelector('div[data-js="filtro-de-tipo"]').innerHTML = template;

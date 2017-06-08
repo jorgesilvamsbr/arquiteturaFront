@@ -3,6 +3,8 @@ const templateStatus = `
 </select>
 `;
 
+let $ = require("jquery");
+
 class FiltroDeStatus {
     iniciar() {
         $.ajax({
@@ -17,3 +19,5 @@ class FiltroDeStatus {
         });
     }
 }
+
+module.exports = FiltroDeStatus;

@@ -1,5 +1,5 @@
 urlBase = [];
 
 urlBase.obter = () => {
-    return "http://hom.nexxus.sed.ms.gov.br/api/";
+    return "http://localhost:8080/api/";
 }
