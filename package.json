@@ -4,11 +4,15 @@
   "description": "",
   "main": "filtro.controller.js",
   "devDependencies": {
+    "browser-env": "^2.0.31",
+    "expect.js": "^0.3.1",
     "jquery": "^3.2.1",
+    "knockout": "^3.4.2",
+    "mocha": "^3.4.2",
     "webpack": "^2.6.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "webpack && mocha dist/test.dist.js --color --require test/setup-browser-env.js || true"
   },
   "repository": {
     "type": "git",

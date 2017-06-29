@@ -1,3 +1,5 @@
+import ko from 'knockout';
+import urlBase from './utils/urlBase';
 let templateGrid = `
 <table class="table table-striped">
     <thead>
@@ -18,8 +20,10 @@ let templateGrid = `
 `
 let url;
 
-class GridFiltro {
-    constructor() {
+export default class GridFiltro {
+    
+    constructor(mediador) {
+        this.mediador = mediador;
     }
 
     iniciar() {
@@ -29,12 +33,12 @@ class GridFiltro {
         document.querySelector('div[data-js="grid-de-solicitacoes"]').innerHTML = templateGrid;
         ko.applyBindings(this, document.querySelector('div[data-js="grid-de-solicitacoes"]'));
 
-        window.mediador.registrar('trocou-filtro-de-status', (statusDaSolicitacao) => {
+        this.mediador.registrar('trocou-filtro-de-status', (statusDaSolicitacao) => {
             let solicitacoesFiltradas = this.obterSolicitacoesFiltradasPorStatus(statusDaSolicitacao);
             this.solicitacoes(solicitacoesFiltradas);
         });
 
-        window.mediador.registrar('trocou-filtro-de-tipo', (tipoDaSolicitacao) => {
+        this.mediador.registrar('trocou-filtro-de-tipo', (tipoDaSolicitacao) => {
             let solicitacoesFiltradas = this.obterSolicitacoesFiltradasPorTipo(tipoDaSolicitacao);
             this.solicitacoes(solicitacoesFiltradas);
         });

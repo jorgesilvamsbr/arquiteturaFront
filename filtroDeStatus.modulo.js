@@ -1,3 +1,5 @@
+import urlBase from "./utils/urlBase";
+
 const templateStatus = `
 <select id="select-status" class="form-control" name="" data-js="select-do-status-da-empresa" data-bind=" options: status, optionsCaption: 'Selecione o status'">
 </select>
@@ -5,7 +7,10 @@ const templateStatus = `
 
 let $ = require("jquery");
 
-class FiltroDeStatus {
+export default class FiltroDeStatus {
+    constructor(mediador) {
+        this.mediador = mediador;
+    }
     iniciar() {
         $.ajax({
             url: urlBase.obter() + "solicitacao/status"
@@ -13,11 +18,9 @@ class FiltroDeStatus {
             this.status = data;
             document.querySelector('div[data-js="filtro-de-status"]').innerHTML = templateStatus;
             document.querySelector('#select-status').addEventListener('change', function () {
-                window.mediador.notificar('trocou-filtro-de-status', this.value);
+                this.mediador.notificar('trocou-filtro-de-status', this.value);
             });
             ko.applyBindings(this, document.querySelector('select[data-js="select-do-status-da-empresa"]'));
         });
     }
 }
-
-module.exports = FiltroDeStatus;

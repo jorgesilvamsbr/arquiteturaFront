@@ -1,2 +1,3 @@
-let FiltroDeStatus = require("./filtroDeStatus.modulo");
-new FiltroDeStatus().iniciar();
+import FiltroController from './filtro.controller';
+
+new FiltroController().iniciar();

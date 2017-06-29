@@ -1,4 +1,4 @@
-class Mediador {
+export default class Mediador {
     constructor() {
         this.eventos = {};
     }
@@ -11,5 +11,3 @@ class Mediador {
         this.eventos[nome](parametros);
     }
 }
-
-window.mediador = new Mediador();
