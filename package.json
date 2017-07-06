@@ -12,7 +12,7 @@
     "webpack": "^2.6.1"
   },
   "scripts": {
-    "test": "webpack && mocha dist/test.dist.js --color --require test/setup-browser-env.js || true"
+    "test": "webpack && mocha dist/test.dist.js --color --require ./test/setUp-browser-env.js || true"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/jorgesilvamsbr/arquiteturaFront/issues"
   },
-  "homepage": "https://github.com/jorgesilvamsbr/arquiteturaFront#readme"
+  "homepage": "https://github.com/jorgesilvamsbr/arquiteturaFront#readme",
+  "dependencies": {
+    "testdouble": "^3.2.2"
+  }
 }
