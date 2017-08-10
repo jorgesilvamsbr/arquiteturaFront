@@ -1,5 +1,6 @@
 import urlBase from "./utils/urlBase";
 import Http from "./utils/http";
+import ko from 'knockout';
 
 const templateStatus = `
 <select id="select-status" class="form-control" name="" data-js="select-do-status-da-empresa" data-bind=" options: status, optionsCaption: 'Selecione o status'">

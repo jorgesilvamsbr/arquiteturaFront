@@ -63,19 +63,19 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 161);
+/******/ 	return __webpack_require__(__webpack_require__.s = 163);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 157:
+/***/ 159:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__filtroDeStatus_modulo__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__filtroDeTipo_modulo__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gridFiltro_modulo__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mediador__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__filtroDeStatus_modulo__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__filtroDeTipo_modulo__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gridFiltro_modulo__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mediador__ = __webpack_require__(55);
 
 
 
@@ -104,7 +104,7 @@ class FiltroController {
 "use strict";
 class UrlBase {
     static obter(){
-        return "http://nexxus.apr.digithobrasil/nexxus/api/";
+        return "http://localhost:8080/api/";
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = UrlBase;
@@ -112,24 +112,27 @@ class UrlBase {
 
 /***/ }),
 
-/***/ 161:
+/***/ 163:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__filtro_controller__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__filtro_controller__ = __webpack_require__(159);
 
 
 new __WEBPACK_IMPORTED_MODULE_0__filtro_controller__["a" /* default */]().iniciar();
 
 /***/ }),
 
-/***/ 162:
+/***/ 164:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_urlBase__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_http__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_knockout__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_knockout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_knockout__);
+
 
 
 
@@ -150,7 +153,7 @@ class FiltroDeStatus {
                 document.querySelector('#select-status').addEventListener('change', function () {
                     this.mediador.notificar('trocou-filtro-de-status', this.value);
                 });
-                ko.applyBindings(this, document.querySelector('select[data-js="select-do-status-da-empresa"]'));
+                __WEBPACK_IMPORTED_MODULE_2_knockout___default.a.applyBindings(this, document.querySelector('select[data-js="select-do-status-da-empresa"]'));
             })
             .catch((erro)=>{
                 console.log(erro);
@@ -162,11 +165,11 @@ class FiltroDeStatus {
 
 /***/ }),
 
-/***/ 163:
+/***/ 165:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_knockout__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_knockout__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_knockout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_knockout__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_urlBase__ = __webpack_require__(16);
 
@@ -247,7 +250,7 @@ class GridFiltro {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
 
 
@@ -265,7 +268,7 @@ class Http{
 
 /***/ }),
 
-/***/ 31:
+/***/ 24:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -6209,78 +6212,7 @@ ko.exportSymbol('nativeTemplateEngine', ko.nativeTemplateEngine);
 
 /***/ }),
 
-/***/ 52:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_urlBase__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_knockout__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_knockout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_knockout__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_http__ = __webpack_require__(22);
-
-
-
-
-
-const template = `
-<select id="select-tipo-da-solicitacao" class="form-control" name="" 
-    data-js="select-do-filtro-de-tipo" 
-    data-bind=" options: tipo, optionsCaption: 'Selecione o tipo'">
-</select>
-`;
-
-class FiltroDeTipo {
-    constructor(mediador) {
-        this.mediador = mediador;
-        this.viewModel = {
-            tipo: ['oi']
-        };
-    }
-    iniciar() {
-        document.querySelector('div[data-js="filtro-de-tipo"]').innerHTML = template;
-        let funcaoChange = () => {
-            this.mediador.notificar('trocou-filtro-de-tipo', this.value);
-        };
-
-        __WEBPACK_IMPORTED_MODULE_2__utils_http__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_0__utils_urlBase__["a" /* default */].obter() + "solicitacao/tipo").then((data) => {
-            this.viewModel.tipo = data;
-            document.querySelector('#select-tipo-da-solicitacao').addEventListener('change', funcaoChange);
-            __WEBPACK_IMPORTED_MODULE_1_knockout___default.a.applyBindings(this.viewModel, document.querySelector('select[data-js="select-do-filtro-de-tipo"]'));
-            console.log(document.body.innerHTML);
-        }).catch((erro) => {
-            console.error(erro);
-        });
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = FiltroDeTipo;
-
-
-
-/***/ }),
-
-/***/ 53:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Mediador {
-    constructor() {
-        this.eventos = {};
-    }
-
-    registrar(nome, callback) {
-        this.eventos[nome] = callback;
-    }
-
-    notificar(nome, parametros) {
-        this.eventos[nome](parametros);
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Mediador;
-
-
-/***/ }),
-
-/***/ 56:
+/***/ 30:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -16537,6 +16469,79 @@ if ( !noGlobal ) {
 
 return jQuery;
 } );
+
+
+/***/ }),
+
+/***/ 54:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_urlBase__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_knockout__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_knockout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_knockout__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_http__ = __webpack_require__(22);
+
+
+
+
+
+const template = `
+<select id="select-tipo-da-solicitacao" class="form-control" name="" 
+    data-js="select-do-filtro-de-tipo" 
+    data-bind="value: tipoSelecionado, options: tipos, optionsCaption: 'Selecione o tipo', event:{change:funcaoChange}">
+</select>
+`;
+
+class FiltroDeTipo {
+    constructor(mediador) {
+        this.mediador = mediador;
+        this.viewModel = {
+            tipos: [],
+            tipoSelecionado: __WEBPACK_IMPORTED_MODULE_1_knockout___default.a.observable(),
+            funcaoChange: () => this.funcaoChange()
+        };
+    }
+
+    iniciar() {
+        document.querySelector('div[data-js="filtro-de-tipo"]').innerHTML = template;
+        __WEBPACK_IMPORTED_MODULE_2__utils_http__["a" /* default */].get(__WEBPACK_IMPORTED_MODULE_0__utils_urlBase__["a" /* default */].obter() + "solicitacao/tipo").then((data) => {
+            this.viewModel.tipos = data;
+            __WEBPACK_IMPORTED_MODULE_1_knockout___default.a.applyBindings(this.viewModel, document.querySelector('select[data-js="select-do-filtro-de-tipo"]'));
+        }).catch((erro) => {
+            console.error(erro);
+        });
+    }
+
+    funcaoChange() {
+        console.log(this.viewModel.tipoSelecionado(), 'este é o tipo');
+        this.mediador.notificar('trocou-filtro-de-tipo', this.viewModel.tipoSelecionado());
+    };
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = FiltroDeTipo;
+
+
+
+/***/ }),
+
+/***/ 55:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Mediador {
+    constructor() {
+        this.eventos = {};
+    }
+
+    registrar(nome, callback) {
+        this.eventos[nome] = callback;
+    }
+
+    notificar(nome, parametros) {
+        this.eventos[nome](parametros);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Mediador;
 
 
 /***/ })
