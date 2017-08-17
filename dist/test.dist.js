@@ -18436,6 +18436,7 @@ module.exports = function(module) {
 
 
 const template = `
+<div class="js-caixa-de-alerta" style="background-color: #fff000; font-size:12px;">Este é meu alerta!</div>
 <select id="select-tipo-da-solicitacao" class="form-control" name="" 
     data-js="select-do-filtro-de-tipo" 
     data-bind="value: tipoSelecionado, options: tipos, optionsCaption: 'Selecione o tipo', event:{change:funcaoChange}">
@@ -18463,12 +18464,13 @@ class FiltroDeTipo {
     }
 
     funcaoChange() {
-        console.log(this.viewModel.tipoSelecionado(), 'este é o tipo');
+        if(this.viewModel.tipoSelecionado() == "EMENDA"){
+            document.querySelector(".js-caixa-de-alerta").style.display = 'none';
+        }
         this.mediador.notificar('trocou-filtro-de-tipo', this.viewModel.tipoSelecionado());
     };
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = FiltroDeTipo;
-
 
 
 /***/ }),
@@ -32357,6 +32359,25 @@ describe("Filtro de tipo de solicitação", () => {
         let variavel = __WEBPACK_IMPORTED_MODULE_4_testdouble___default.a.explain(mediador.notificar);
         console.log(variavel);
         __WEBPACK_IMPORTED_MODULE_4_testdouble___default.a.verify(mediador.notificar('trocou-filtro-de-tipo', 'FUNDEB'))
+    });
+
+    it("deve esconder o alerta quando selecionar o tipo de solicitacao igual a EMENDA", () => {
+        let mediador = new __WEBPACK_IMPORTED_MODULE_2__mediador__["a" /* default */]();
+        mediador.notificar = __WEBPACK_IMPORTED_MODULE_4_testdouble___default.a.function();
+        let dataFake = ['TRANSPORTE_ESCOLAR','EMENDA'];
+        let stub = __WEBPACK_IMPORTED_MODULE_4_testdouble___default.a.function();
+        __WEBPACK_IMPORTED_MODULE_4_testdouble___default.a.when(stub(__WEBPACK_IMPORTED_MODULE_6__utils_urlBase__["a" /* default */].obter() + "solicitacao/tipo")).thenReturn(new __WEBPACK_IMPORTED_MODULE_5__fakePromise__["a" /* default */](dataFake));
+        __WEBPACK_IMPORTED_MODULE_3__utils_http__["a" /* default */].get = stub;
+        let filtroDeTipo = new __WEBPACK_IMPORTED_MODULE_1__filtroDeTipo_modulo__["a" /* default */](mediador);
+        filtroDeTipo.iniciar();
+        
+        let seletor = document.getElementById("select-tipo-da-solicitacao");
+        seletor.value = 'EMENDA';
+        let eventoDeChange = document.createEvent("HTMLEvents");
+        eventoDeChange.initEvent("change", true, true);
+        seletor.dispatchEvent(eventoDeChange);
+
+        __WEBPACK_IMPORTED_MODULE_0_expect_js___default()(document.querySelector(".js-caixa-de-alerta").style.display).to.be.equal("none");
     });
 });
 

@@ -51,4 +51,23 @@ describe("Filtro de tipo de solicitação", () => {
         console.log(variavel);
         td.verify(mediador.notificar('trocou-filtro-de-tipo', 'FUNDEB'))
     });
+
+    it("deve esconder o alerta quando selecionar o tipo de solicitacao igual a EMENDA", () => {
+        let mediador = new Mediador();
+        mediador.notificar = td.function();
+        let dataFake = ['TRANSPORTE_ESCOLAR','EMENDA'];
+        let stub = td.function();
+        td.when(stub(urlBase.obter() + "solicitacao/tipo")).thenReturn(new FakePromise(dataFake));
+        Http.get = stub;
+        let filtroDeTipo = new FiltroDeTipo(mediador);
+        filtroDeTipo.iniciar();
+        
+        let seletor = document.getElementById("select-tipo-da-solicitacao");
+        seletor.value = 'EMENDA';
+        let eventoDeChange = document.createEvent("HTMLEvents");
+        eventoDeChange.initEvent("change", true, true);
+        seletor.dispatchEvent(eventoDeChange);
+
+        expect(document.querySelector(".js-caixa-de-alerta").style.display).to.be.equal("none");
+    });
 });

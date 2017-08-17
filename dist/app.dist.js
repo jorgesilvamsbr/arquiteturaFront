@@ -243,7 +243,6 @@ class GridFiltro {
 /* harmony export (immutable) */ __webpack_exports__["a"] = GridFiltro;
 
 
-
 /***/ }),
 
 /***/ 22:
@@ -16487,6 +16486,7 @@ return jQuery;
 
 
 const template = `
+<div class="js-caixa-de-alerta" style="background-color: #fff000; font-size:12px;">Este é meu alerta!</div>
 <select id="select-tipo-da-solicitacao" class="form-control" name="" 
     data-js="select-do-filtro-de-tipo" 
     data-bind="value: tipoSelecionado, options: tipos, optionsCaption: 'Selecione o tipo', event:{change:funcaoChange}">
@@ -16514,12 +16514,13 @@ class FiltroDeTipo {
     }
 
     funcaoChange() {
-        console.log(this.viewModel.tipoSelecionado(), 'este é o tipo');
+        if(this.viewModel.tipoSelecionado() == "EMENDA"){
+            document.querySelector(".js-caixa-de-alerta").style.display = 'none';
+        }
         this.mediador.notificar('trocou-filtro-de-tipo', this.viewModel.tipoSelecionado());
     };
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = FiltroDeTipo;
-
 
 
 /***/ }),
